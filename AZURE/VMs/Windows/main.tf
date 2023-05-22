@@ -1,6 +1,7 @@
+# create resource group KODEKLOUD
 resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
-  name     = "${random_pet.prefix.id}-rg"
+  name     = var.resource_group_name
 }
 
 # Create virtual network
@@ -100,7 +101,7 @@ resource "azurerm_windows_virtual_machine" "main" {
   os_disk {
     name                 = "myOsDisk"
     caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "Standard_LRS"
   }
 
   source_image_reference {
