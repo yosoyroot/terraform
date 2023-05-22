@@ -1,11 +1,21 @@
-resource "random_pet" "rg_name" {
-  prefix = var.resource_group_name_prefix
-}
+# resource "random_pet" "rg_name" {
+#   prefix = var.resource_group_name_prefix
+# }
 
+# resource "azurerm_resource_group" "rg" {
+#   location = var.resource_group_location
+#   name     = random_pet.rg_name.id
+# }
+
+# You have to import the rg since its already created before running terraform apply
+# terraform import azurerm_resource_group.rg /subscriptions/b2aec48f-6dad-4d57-ad25-dad521fe74a4/resourceGroups/ODL-azure-952978
+
+# create resource group KODEKLOUD
 resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
-  name     = random_pet.rg_name.id
+  name     = var.resource_group_name
 }
+
 
 # Create virtual network
 resource "azurerm_virtual_network" "my_terraform_network" {
