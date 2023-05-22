@@ -1,4 +1,7 @@
+# certs and all
 *.pem
+*rsa*
+*.pub
 # Local .terraform directories
 **/.terraform/*
 

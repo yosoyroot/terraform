@@ -96,7 +96,7 @@ resource "azurerm_storage_account" "my_storage_account" {
   location                 = azurerm_resource_group.rg.location
   resource_group_name      = azurerm_resource_group.rg.name
   account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_replication_type = "LRS" 
 }
 
 # Create (and display) an SSH key
@@ -116,7 +116,7 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
   os_disk {
     name                 = "myOsDisk"
     caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "Standard_LRS"
   }
 
   source_image_reference {
