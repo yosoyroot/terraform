@@ -24,11 +24,13 @@ resource "local_file" "local_key_pair" {
 }
 
 resource "aws_instance" "webserver" {
+  count = 4
+
   ami           = "ami-0cad4fd0aee82f4c3"
   instance_type = "t2.micro"
   ## Use tags to easily identify your EC2 instance
   tags = { 
-    Name        = "webserver"
+    Name        =  "webserver-0${count.index}"
     Description = "An Nginx Webserver on Ubuntu"
   }
   ## Below will run a bash script on the EC2 once it is installed
@@ -66,8 +68,8 @@ resource "aws_security_group" "ssh-access" {
     cidr_blocks   = ["0.0.0.0/0"]
   }
 }
-## default user is ubuntu
-output publicip {
-  value     = aws_instance.webserver.public_ip
-}
+# default user is ubuntu
 
+output "publicips" {
+   value = aws_instance.webserver[*].public_ip
+}
