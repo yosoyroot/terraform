@@ -24,7 +24,7 @@ resource "local_file" "local_key_pair" {
 }
 
 resource "aws_instance" "webserver" {
-  count = 4
+  count = var.number
 
   ami           = var.image
   instance_type = var.instance-type

@@ -8,6 +8,11 @@ variable "instance-type" {
   description = "Default Instance type to be Used"
 }
 
+variable "number" {
+  default     = 4
+  description = "Default count number to be Used"
+}
+
 variable "servername" {
   default     = "webserver"
   description = "Default server name prefix to be Used"
