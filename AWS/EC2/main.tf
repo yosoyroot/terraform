@@ -18,20 +18,21 @@ resource "tls_private_key" "ec2_key" {
 # }
 
 resource "local_file" "local_key_pair" {
-  filename = "ec2keypair.pem"
+  filename        = "ec2keypair.pem"
   file_permission = "0400"
-  content = tls_private_key.ec2_key.private_key_pem
+  content         = tls_private_key.ec2_key.private_key_pem
 }
 
 resource "aws_instance" "webserver" {
   count = 4
 
-  ami           = "ami-0cad4fd0aee82f4c3"
-  instance_type = "t2.micro"
+  ami           = var.image
+  instance_type = var.instance-type
   ## Use tags to easily identify your EC2 instance
-  tags = { 
-    Name        =  "webserver-0${count.index}"
+  tags = {
+    Name        = "${var.servername}-0${count.index}"
     Description = "An Nginx Webserver on Ubuntu"
+    Server = "Nginx"
   }
   ## Below will run a bash script on the EC2 once it is installed
   user_data = <<-EOF
@@ -41,10 +42,10 @@ resource "aws_instance" "webserver" {
               systemctl enable nginx
               systemctl start nginx
               EOF
-  
+
   ## Below is used to use the existing keypair to access EC2 instance
-  key_name = aws_key_pair.web.id
-  vpc_security_group_ids = [ aws_security_group.ssh-access.id ]
+  key_name               = aws_key_pair.web.id
+  vpc_security_group_ids = [aws_security_group.ssh-access.id]
 }
 
 
@@ -62,14 +63,14 @@ resource "aws_security_group" "ssh-access" {
   name        = "ssh-access"
   description = "Allow ssh access from internet"
   ingress {
-    from_port     = 22
-    to_port       = 22
-    protocol      = "tcp"
-    cidr_blocks   = ["0.0.0.0/0"]
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 # default user is ubuntu
 
 output "publicips" {
-   value = aws_instance.webserver[*].public_ip
+  value = aws_instance.webserver[*].public_ip
 }
