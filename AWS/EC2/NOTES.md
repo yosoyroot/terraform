@@ -12,4 +12,4 @@
 ## Observations
 
 - When you change the ami on the config files, it will not recreate the VMs with the new OS, find out why.
-    - I know why, it was taking the value from the tfvars file, find out more how to use tfvars files.
+    - I know why, it was taking the value from the tfvars file, find out more how to use the default terraform.tfvars files.
