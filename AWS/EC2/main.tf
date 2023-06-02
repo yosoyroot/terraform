@@ -23,7 +23,7 @@ resource "local_file" "local_key_pair" {
   content         = tls_private_key.ec2_key.private_key_pem
 }
 
-resource "aws_instance" "webserver" {
+resource "aws_instance" "server" {
   count = var.number
 
   ami           = var.image
@@ -31,7 +31,7 @@ resource "aws_instance" "webserver" {
   ## Use tags to easily identify your EC2 instance
   tags = {
     Name        = "${var.servername}-0${count.index}"
-    Description = "An Nginx Webserver on Ubuntu"
+    Description = "An Nginx server on Ubuntu"
     Server = "Nginx"
   }
   ## Below will run a bash script on the EC2 once it is installed
@@ -90,5 +90,5 @@ resource "aws_security_group" "ssh-access" {
 # default user is ubuntu
 
 output "publicips" {
-  value = aws_instance.webserver[*].public_ip
+  value = aws_instance.server[*].public_ip
 }

@@ -1,5 +1,6 @@
 variable "image" {
-  default     = "ami-0cad4fd0aee82f4c3"
+  # default     = "ami-0cad4fd0aee82f4c3" # Ubuntu
+  default     = "ami-042ac4419012ce541" # aws rhel
   description = "Default Image to be Used"
 }
 
