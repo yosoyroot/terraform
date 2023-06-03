@@ -4,19 +4,6 @@ resource "tls_private_key" "ec2_key" {
   rsa_bits  = 4096
 }
 
-#Resource to Create Key Pair
-# resource "aws_key_pair" "web" {
-#   key_name   = "ec2keypair"
-#   # key_name   = var.key_pair_name
-#   public_key = tls_private_key.ec2_key.public_key_openssh
-# }
-
-# # # #Resource to Create Key Pair
-# resource "aws_key_pair" "aws_keypair" {
-#   key_name   = "ec2keypair"
-#   public_key = file( var.local_file.local_key_pair.filename )
-# }
-
 resource "local_file" "local_key_pair" {
   filename        = "ec2keypair.pem"
   file_permission = "0400"
