@@ -13,6 +13,6 @@ variable "resource_group_location" {
 # get the details from KODEKLOUD after login 'az group list -o yaml'
 variable "resource_group_name" {
   type        = string
-  default     = "ODL-azure-952978"
+  default     = "ODL-azure-1058009"
   description = "RG name provided by KODEKLOUD"
 }

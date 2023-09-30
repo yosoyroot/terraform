@@ -32,6 +32,7 @@ resource "aws_instance" "server" {
 
   ## Below is used to use the existing keypair to access EC2 instance
   key_name               = aws_key_pair.web.id
+  ## Below will add security group policy on the EC2 instance
   vpc_security_group_ids = [aws_security_group.ssh-access.id]
 }
 
